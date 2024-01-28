@@ -9,7 +9,7 @@ const useDebounce = (value: string, delay: number) => {
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedValue(value), delay);
     return () => clearTimeout(handler);
-  }, [value]);
+  }, [value, delay]);
   return debouncedValue;
 };
 
@@ -32,7 +32,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="max-w-[600px]">
         <h1>Searching the Webb.</h1>
-        <p>Semantic searching through Matt Webb's blog, interconnected.</p>
+        <p>Semantic searching through Matt Webbs blog, interconnected.</p>
 
         <input
           type="text"
@@ -42,11 +42,11 @@ export default function Home() {
 
         {matches.length > 0 && (
           <div className="border mt-[-1px]">
-            {matches.map((match) => {
+            {matches.map((match, idx) => {
               const id = parseInt(match.id.substring(3, match.id.length));
               const blogPost = blogPosts[id];
               return (
-                <div className="flex flex-col">
+                <div className="flex flex-col" key={idx}>
                   <a
                     href={
                       blogPost?.link
